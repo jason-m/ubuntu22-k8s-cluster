@@ -1,0 +1,36 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Install ContainerD
+      ansible.builtin.apt:
+        name: containerd
+        update_cache: yes
+        state: present
+
+    - name: Start ContainerD
+      ansible.builtin.systemd:
+        name: containerd
+        state: started
+        enabled: yes
+
+    - name: make /etc/containerd
+      ansible.builtin.file:
+        path: /etc/containerd
+        state: directory
+        owner: root
+        group: root
+
+    - name: generate conf
+      ansible.builtin.shell:
+        cmd: containerd config default > /etc/containerd/config.toml
+
+    - name: modify conf file
+      ansible.builtin.lineinfile:
+        path: /etc/containerd/config.toml
+        state: present
+        regexp: 'SystemdCgroup = false'
+        line: '            SystemdCgroup = true'
+

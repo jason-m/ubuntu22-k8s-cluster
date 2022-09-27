@@ -1,0 +1,22 @@
+---
+
+- hosts: k8scontroller
+  become: yes
+  tasks:
+
+    - name: get join command
+      shell: kubeadm token create --print-join-command
+      register: joincmdraw
+
+    - name: save fact
+      set_fact: 
+        joincmd:  "{{ joincmdraw.stdout_lines[0] }}"
+
+- hosts: k8snodes
+  become: yes
+  tasks:
+
+    - name: join nodes 
+      shell: "{{ hostvars['k8scontroller'].joincmd }}"
+
+
