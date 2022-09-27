@@ -11,4 +11,6 @@ step5-init-controller.play
 - node-name= your controllers hostname without domain
 
 **Instructions**
+
 Run playbooks in order, thats all
+tested on ansible 2.1 using ubuntu22 server cloud images
