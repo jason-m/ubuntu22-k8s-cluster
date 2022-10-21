@@ -103,7 +103,7 @@
 
     - name: Initialize Controller
       ansible.builtin.shell:
-        cmd: kubeadm init --control-plane-endpoint="{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}" --node-name=k8s-controller --pod-network-cidr=10.244.0.0/16 > /root/k8s-init.txt
+        cmd: kubeadm init --control-plane-endpoint="{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}" --node-name="{{ ansible_host.split('.')[0] }}" --pod-network-cidr=10.244.0.0/16 > /root/k8s-init.txt
 
     - name: create .kube directory
       ansible.builtin.file:
