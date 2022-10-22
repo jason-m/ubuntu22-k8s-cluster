@@ -4,15 +4,13 @@ ansible playbooks for deploying kubernetes cluster on ubuntu22
 **Edits required:**
 
 inventory.yaml 
-- edit host addresses
+- add hosts to right category
 
-step5-init-controller.play 
-- control-plane-endpoint= to match your controllers ip address
-- node-name= your controllers hostname without domain
+- deploy.play assumes the default ipv4 address is correct for the cluster controllers listen address if running multiple you may need to manually specify the address instead of using the variables in the intialize controller task
 
 **Instructions**
+run it and wait
 
-Run playbooks in order, thats all
 
 
 
