@@ -1,0 +1,11 @@
+all:
+
+  hosts:
+    k8scontroller:
+      ansible_host: k8s-controller.domain.name
+
+  children:
+    k8snodes:
+      hosts:
+        k8s-node[1:5].domain.name
+
